@@ -350,6 +350,19 @@ appServer:
     # Additional annotations for the ingress
     annotations: {}
   nginx:
+    # Upstream host the nginx sidecar uses to reach the app-server container
+    # in the same pod. Defaults to "localhost" — backward-compatible with the
+    # pre-existing hardcoded value.
+    #
+    # On dual-stack hosts, `localhost` can resolve to `::1` (IPv6 loopback)
+    # before `127.0.0.1` (IPv4 loopback). nginx's upstream module then fails
+    # to connect when the app-server container is only listening on the IPv4
+    # loopback, surfacing as nginx error log entries like
+    # `connect() failed (111: Connection refused) while connecting to upstream`.
+    # If you see those, override to "127.0.0.1" to force IPv4. For IPv6-only
+    # deployments where app-server binds only to the IPv6 loopback, override
+    # to "::1".
+    proxyUpstreamHost: "localhost"
     resources:
       requests:
         cpu: "100m"
