@@ -386,16 +386,10 @@ appServer:
     llmModelMedium: ""
     llmModelLarge: ""
   livenessProbe:
-    httpGet:
-      path: /health
-      port: 8000
     initialDelaySeconds: 5
     periodSeconds: 5
     failureThreshold: 1
   readinessProbe:
-    httpGet:
-      path: /ready
-      port: 8000
     initialDelaySeconds: 5
     periodSeconds: 5
     failureThreshold: 1
@@ -476,16 +470,10 @@ appServerConsumer:
     quickwitSearchUrl: "http://laminar-quickwit-searcher:7280"
     quickwitIngestUrl: "http://laminar-quickwit-indexer:7281"
   livenessProbe:
-    httpGet:
-      path: /health
-      port: 8000
     initialDelaySeconds: 5
     periodSeconds: 5
     failureThreshold: 1
   readinessProbe:
-    httpGet:
-      path: /ready
-      port: 8000
     initialDelaySeconds: 5
     periodSeconds: 5
     failureThreshold: 1
