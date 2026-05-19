@@ -43,14 +43,12 @@ spec:
               port: 3000
             initialDelaySeconds: {{ .Values.frontend.readinessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.frontend.readinessProbe.periodSeconds }}
-            failureThreshold: {{ .Values.frontend.readinessProbe.failureThreshold }}
           livenessProbe:
             httpGet:
               path: /
               port: 3000
             initialDelaySeconds: {{ .Values.frontend.livenessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.frontend.livenessProbe.periodSeconds }}
-            failureThreshold: {{ .Values.frontend.livenessProbe.failureThreshold }}
           resources:
             {{- toYaml .Values.frontend.resources | nindent 12 }}
           envFrom:

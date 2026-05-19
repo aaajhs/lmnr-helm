@@ -264,11 +264,9 @@ frontend:
   readinessProbe:
     initialDelaySeconds: 150
     periodSeconds: 10
-    failureThreshold: 3
   livenessProbe:
     initialDelaySeconds: 150
     periodSeconds: 20
-    failureThreshold: 3
   # Additional environment variables for the frontend container.
   # Supports all Kubernetes env var formats including valueFrom.secretKeyRef
   # to reference pre-existing Kubernetes secrets.
