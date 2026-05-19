@@ -36,19 +36,9 @@ spec:
           envFrom:
             {{- include "lmnr.secrets.envFrom" . | nindent 12 }}
           livenessProbe:
-            httpGet:
-              path: /health
-              port: 8000
-            initialDelaySeconds: 5
-            periodSeconds: 5
-            failureThreshold: 1
+            {{- toYaml .Values.appServer.livenessProbe | nindent 12 }}
           readinessProbe:
-            httpGet:
-              path: /ready
-              port: 8000
-            initialDelaySeconds: 5
-            periodSeconds: 5
-            failureThreshold: 1
+            {{- toYaml .Values.appServer.readinessProbe | nindent 12 }}
           env:
             - name: OPERATION_MODE
               value: "producer"

@@ -38,17 +38,9 @@ spec:
           # First launch runs all migrations to prepare databases, which can take several minutes.
           # Larger initial delays are set to account for this.
           readinessProbe:
-            httpGet:
-              path: /
-              port: 3000
-            initialDelaySeconds: {{ .Values.frontend.readinessProbe.initialDelaySeconds }}
-            periodSeconds: {{ .Values.frontend.readinessProbe.periodSeconds }}
+            {{- toYaml .Values.frontend.readinessProbe | nindent 12 }}
           livenessProbe:
-            httpGet:
-              path: /
-              port: 3000
-            initialDelaySeconds: {{ .Values.frontend.livenessProbe.initialDelaySeconds }}
-            periodSeconds: {{ .Values.frontend.livenessProbe.periodSeconds }}
+            {{- toYaml .Values.frontend.livenessProbe | nindent 12 }}
           resources:
             {{- toYaml .Values.frontend.resources | nindent 12 }}
           envFrom:

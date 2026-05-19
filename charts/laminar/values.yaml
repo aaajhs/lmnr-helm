@@ -262,9 +262,15 @@ frontend:
   # First launch runs all migrations to prepare databases, which can take several minutes.
   # Larger initial delays are set to account for this.
   readinessProbe:
+    httpGet:
+      path: /
+      port: 3000
     initialDelaySeconds: 150
     periodSeconds: 10
   livenessProbe:
+    httpGet:
+      path: /
+      port: 3000
     initialDelaySeconds: 150
     periodSeconds: 20
   # Additional environment variables for the frontend container.
@@ -383,6 +389,20 @@ appServer:
     llmModelSmall: ""
     llmModelMedium: ""
     llmModelLarge: ""
+  livenessProbe:
+    httpGet:
+      path: /health
+      port: 8000
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    failureThreshold: 1
+  readinessProbe:
+    httpGet:
+      path: /ready
+      port: 8000
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    failureThreshold: 1
   # Additional environment variables for the app-server container.
   # Supports all Kubernetes env var formats including valueFrom.secretKeyRef.
   # These take precedence over values injected via envFrom (secrets.data).
@@ -459,6 +479,20 @@ appServerConsumer:
     enableReports: "false"
     quickwitSearchUrl: "http://laminar-quickwit-searcher:7280"
     quickwitIngestUrl: "http://laminar-quickwit-indexer:7281"
+  livenessProbe:
+    httpGet:
+      path: /health
+      port: 8000
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    failureThreshold: 1
+  readinessProbe:
+    httpGet:
+      path: /ready
+      port: 8000
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    failureThreshold: 1
   # Additional environment variables for the app-server-consumer container.
   # Supports all Kubernetes env var formats including valueFrom.secretKeyRef.
   # These take precedence over values injected via envFrom (secrets.data).
